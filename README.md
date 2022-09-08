@@ -20,5 +20,5 @@ https://dev.smartide.cn/#/layout/smartide/workspace?gitRepoUrl=https://github.co
 
 ### 本地 k8s模式：
 
-se start --k8s smartide-workload-test -r https://github.com/SmartIDE/empty-for-image-test.git -b master -f .ide/.ide.yaml -d
+se start --k8s smartide-workload-test -r https://github.com/SmartIDE/empty-for-image-test.git -b base -f .ide/.ide.yaml -d
 
