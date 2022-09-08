@@ -14,6 +14,8 @@ workspace:
     volumes: 
       git-config: true
       ssh-key: true
+    command:
+      - dir
 
   kube-deploy-files: "vscode-vmlc-k8s-deployment.yaml" 
   docker-compose-file: "vscode-vmlc-docker-compose.yaml"
