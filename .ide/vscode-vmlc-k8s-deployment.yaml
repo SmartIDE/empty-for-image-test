@@ -1,7 +1,7 @@
 ---
 
 apiVersion: apps/v1
-kind: Deployment
+kind: Pod
 metadata:
   name: smartide-vmlc-vscode-node-dev
 spec:
