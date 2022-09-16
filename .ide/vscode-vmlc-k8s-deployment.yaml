@@ -16,6 +16,7 @@ spec:
       labels:
         boathouse-calculator.service: smartide-vmlc-vscode-node
     spec:
+      runtimeClassName: sysbox-runc
       containers:
         - env:
             - name: LOCAL_USER_PASSWORD
