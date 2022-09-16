@@ -16,6 +16,7 @@ spec:
           value: root123     
       name: smartide-vmlc-vscode-node-dev
       image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-node-v2-vscode-vmlc:latest
+      command: ["/sbin/init"]
       imagePullPolicy: Always
       ports:
         - containerPort: 3000
