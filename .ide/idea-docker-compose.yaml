@@ -1,8 +1,8 @@
 
 version: "3"
 services:
-  smartide-webstorm-node-dev:
-    image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-node-v2-jetbrains-webstorm:latest
+  smartide-idea-java-dev:
+    image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-java-v2-jetbrains-idea:latest
     hostname: dev-container
     restart: always
     environment:

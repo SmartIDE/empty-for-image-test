@@ -3,26 +3,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: smartide-webstorm-node-dev
+  name: smartide-idea-java-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      boathouse-calculator.service: smartide-webstorm-node
+      boathouse-calculator.service: smartide-idea-java
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        boathouse-calculator.service: smartide-webstorm-node
+        boathouse-calculator.service: smartide-idea-java
     spec:
       containers:
         - env:
             - name: LOCAL_USER_PASSWORD
               value: root123
-          image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-node-v2-jetbrains-webstorm:latest
+          image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-java-v2-jetbrains-idea:latest
           imagePullPolicy: Always
-          name: smartide-webstorm-node-dev
+          name: smartide-idea-java-dev
           ports:
             - containerPort: 8887
             - containerPort: 22
@@ -41,7 +41,7 @@ status: {}
 apiVersion: v1
 kind: Service
 metadata:
-  name: smartide-webstorm-node-service
+  name: smartide-idea-java-service
 spec:
   ports:   
     - name: "6800"
@@ -51,7 +51,7 @@ spec:
       port: 6822
       targetPort: 22
   selector:
-    boathouse-calculator.service: smartide-webstorm-node
+    boathouse-calculator.service: smartide-idea-java
 status:
   loadBalancer: {}
 
@@ -60,13 +60,13 @@ status:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: smartide-webstorm-node-network
+  name: smartide-idea-java-network
 spec:
   ingress:
     - from:
         - podSelector:
             matchLabels:
-              smartide-webstorm-node/smartide-network: "true"
+              smartide-idea-java/smartide-network: "true"
   podSelector:
     matchLabels:
-      smartide-webstorm-node/smartide-network: "true"
+      smartide-idea-java/smartide-network: "true"

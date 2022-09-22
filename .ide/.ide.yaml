@@ -4,7 +4,7 @@ orchestrator:
   version: 3
 workspace:
   dev-container:
-    service-name: smartide-webstorm-node-dev
+    service-name: smartide-idea-java-dev
 
     ports:
       tools-webide-vscode: 6800
@@ -16,11 +16,6 @@ workspace:
       ssh-key: true
     command:
       - npm config get registry
-    #  - npm install -g express-generator
-    #  - express --view=pug myapp
-    #  - npm config set registry https://registry.npmmirror.com
-    #  - npm install
-    #  - npm start
 
-  kube-deploy-files: "webstorm-k8s-deployment.yaml" 
-  docker-compose-file: "webstorm-docker-compose.yaml"
+  kube-deploy-files: "idea-k8s-deployment.yaml" 
+  docker-compose-file: "idea-docker-compose.yaml"
