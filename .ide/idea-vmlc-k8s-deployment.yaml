@@ -1,58 +1,43 @@
 ---
 
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata:
-  name: smartide-idea-vmlc-java-dev
+  name: smartide-vmlc-vscode-java-dev
+  annotations:
+    io.kubernetes.cri-o.userns-mode: "auto:size=65536"
+  labels:
+    smartide-java.service: smartide-java
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      boathouse-calculator.service: smartide-idea-vmlc-java
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        boathouse-calculator.service: smartide-idea-vmlc-java
-    spec:
-      runtimeClassName: sysbox-runc
-      containers:
-        - env:
-          - name: LOCAL_USER_PASSWORD
-            value: root123
-          image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-java-v2-jetbrains-idea-vmlc:latest
-          command: ["/sbin/init"]
-          imagePullPolicy: Always
-          name: smartide-idea-vmlc-java-dev
-          ports:
-            - containerPort: 8887
-            - containerPort: 22
-          resources:
-            requests:
-              memory: "1Gi"
-              cpu: "1000m"
-            limits:
-              memory: "2Gi"
-              cpu: "2000m"
-status: {}
+  runtimeClassName: sysbox-runc
+  containers:
+    - env:
+        - name: LOCAL_USER_PASSWORD
+          value: root123     
+      name: smartide-vmlc-vscode-java-dev
+      image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-java-v2-idea-vmlc:latest
+      command: ["/sbin/init"]
+      imagePullPolicy: Always
+      ports:
+        - containerPort: 8887
+        - containerPort: 22
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: smartide-idea-vmlc-java-service
+  name: smartide-vmlc-vscode-java-dev
 spec:
-  ports:
+  ports:   
     - name: "6800"
       port: 6800
-      targetPort: 8887
+      targetPort: 8887 
     - name: "6822"
       port: 6822
       targetPort: 22
   selector:
-    boathouse-calculator.service: smartide-idea-vmlc-java
+    smartide-java.service: smartide-java
 status:
   loadBalancer: {}
 
@@ -61,13 +46,13 @@ status:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: smartide-idea-vmlc-java-network
+  name: smartide-java-network
 spec:
   ingress:
     - from:
         - podSelector:
             matchLabels:
-              smartide-idea-vmlc-java/smartide-network: "true"
+              smartide-java/smartide-network: "true"
   podSelector:
     matchLabels:
-      smartide-idea-vmlc-java/smartide-network: "true"
+      smartide-java/smartide-network: "true"
