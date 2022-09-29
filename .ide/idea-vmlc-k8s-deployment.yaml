@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: smartide-vmlc-vscode-java-dev
+  name: smartide-vmlc-idea-java-dev
   annotations:
     io.kubernetes.cri-o.userns-mode: "auto:size=65536"
   labels:
@@ -14,7 +14,7 @@ spec:
     - env:
         - name: LOCAL_USER_PASSWORD
           value: root123     
-      name: smartide-vmlc-vscode-java-dev
+      name: smartide-vmlc-idea-java-dev
       image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-java-v2-jetbrains-idea-vmlc:latest
       command: ["/sbin/init"]
       imagePullPolicy: Always
