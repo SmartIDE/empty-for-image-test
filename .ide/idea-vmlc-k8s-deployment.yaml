@@ -3,30 +3,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: smartide-idea-java-dev
+  name: smartide-idea-vmlc-java-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      boathouse-calculator.service: smartide-idea-java
+      boathouse-calculator.service: smartide-idea-vmlc-java
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        boathouse-calculator.service: smartide-idea-java
+        boathouse-calculator.service: smartide-idea-vmlc-java
     spec:
+      runtimeClassName: sysbox-runc
       containers:
         - env:
             - name: LOCAL_USER_PASSWORD
               value: root123
-          image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-java-v2-jetbrains-idea:latest
+          image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-java-v2-jetbrains-idea-vmlc:latest
+          command: ["/sbin/init"]
           imagePullPolicy: Always
-          name: smartide-idea-java-dev
+          name: smartide-idea-vmlc-java-dev
           ports:
             - containerPort: 8887
             - containerPort: 22
-            
+
           resources:
             requests:
               memory: "2Gi"
@@ -41,9 +43,9 @@ status: {}
 apiVersion: v1
 kind: Service
 metadata:
-  name: smartide-idea-java-service
+  name: smartide-idea-vmlc-java-service
 spec:
-  ports:   
+  ports:
     - name: "6800"
       port: 6800
       targetPort: 8887
@@ -51,7 +53,7 @@ spec:
       port: 6822
       targetPort: 22
   selector:
-    boathouse-calculator.service: smartide-idea-java
+    boathouse-calculator.service: smartide-idea-vmlc-java
 status:
   loadBalancer: {}
 
@@ -60,13 +62,13 @@ status:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: smartide-idea-java-network
+  name: smartide-idea-vmlc-java-network
 spec:
   ingress:
     - from:
         - podSelector:
             matchLabels:
-              smartide-idea-java/smartide-network: "true"
+              smartide-idea-vmlc-java/smartide-network: "true"
   podSelector:
     matchLabels:
-      smartide-idea-java/smartide-network: "true"
+      smartide-idea-vmlc-java/smartide-network: "true"

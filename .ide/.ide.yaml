@@ -4,18 +4,18 @@ orchestrator:
   version: 3
 workspace:
   dev-container:
-    service-name: smartide-idea-java-dev
+    service-name: smartide-idea-vmlc-java-dev
 
     ports:
       tools-webide-idea: 6800
       tools-ssh: 6822
     ide-type: jb-projector
 
-    volumes: 
+    volumes:
       git-config: true
       ssh-key: true
     command:
       - npm config get registry
 
-  kube-deploy-files: "idea-k8s-deployment.yaml" 
-  docker-compose-file: "idea-docker-compose.yaml"
+  kube-deploy-files: "idea-vmlc-k8s-deployment.yaml"
+  docker-compose-file: "idea-vmlc-docker-compose.yaml"
