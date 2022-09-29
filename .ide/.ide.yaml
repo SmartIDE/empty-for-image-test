@@ -4,7 +4,7 @@ orchestrator:
   version: 3
 workspace:
   dev-container:
-    service-name: smartide-vmlc-vscode-java-dev
+    service-name: smartide-vmlc-idea-java-dev
 
     ports:
       tools-webide-idea: 6800
