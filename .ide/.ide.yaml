@@ -4,7 +4,7 @@ orchestrator:
   version: 3
 workspace:
   dev-container:
-    service-name: smartide-golang-go-dev
+    service-name: smartide-golang-vmlc-go-dev
 
     ports:
       tools-webide-goland: 6800
@@ -18,5 +18,5 @@ workspace:
     command:
       - go env -w GOPROXY=https://goproxy.cn,direct
 
-  kube-deploy-files: "golang-k8s-deployment.yaml" 
-  docker-compose-file: "golang-docker-compose.yaml"
+  kube-deploy-files: "golang-vmlc-k8s-deployment.yaml" 
+  docker-compose-file: "golang-vmlc-docker-compose.yaml"

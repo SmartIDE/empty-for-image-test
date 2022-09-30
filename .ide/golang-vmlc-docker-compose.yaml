@@ -1,8 +1,9 @@
 
 version: "3"
 services:
-  smartide-golang-go-dev:
-    image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-golang-v2-jetbrains-goland:latest
+  smartide-golang-vmlc-go-dev:
+    image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-golang-v2-jetbrains-goland-vmlc:latest
+    runtime: sysbox-runc
     hostname: dev-container
     restart: always
     environment:

@@ -1,0 +1,67 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: smartide-golang-vmlc-go-dev
+  annotations:
+    io.kubernetes.cri-o.userns-mode: "auto:size=65536"
+  labels:
+    smartide-golang-vmlc.service: smartide-golang-vmlc-go
+spec:
+  runtimeClassName: sysbox-runc
+  containers:
+    - env:
+        - name: LOCAL_USER_PASSWORD
+          value: root123
+      name: smartide-golang-vmlc-go-dev
+      image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-golang-v2-jetbrains-goland-vmlc:latest
+      command: ["/sbin/init"]
+      imagePullPolicy: Always
+      ports:
+        - containerPort: 3001
+        - containerPort: 22
+        - containerPort: 8887
+      resources:
+        requests:
+          memory: "2Gi"
+          cpu: "2000m"
+        limits:
+          memory: "2Gi"
+          cpu: "2000m"
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: smartide-golang-vmlc-go-service
+spec:
+  ports:
+    - name: "6800"
+      port: 6800
+      targetPort: 8887
+    - name: "3001"
+      port: 3001
+      targetPort: 3001
+    - name: "6822"
+      port: 6822
+      targetPort: 22
+  selector:
+    smartide-golang-vmlc.service: smartide-golang-vmlc-go
+status:
+  loadBalancer: {}
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: smartide-golang-vmlc-go-network
+spec:
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              smartide-golang-vmlc-go/smartide-network: "true"
+  podSelector:
+    matchLabels:
+      smartide-golang-vmlc-go/smartide-network: "true"
