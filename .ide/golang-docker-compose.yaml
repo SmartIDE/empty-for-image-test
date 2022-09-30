@@ -1,9 +1,8 @@
 
 version: "3"
 services:
-  smartide-idea-vmlc-java-dev:
-    image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-java-v2-jetbrains-idea-vmlc:latest
-    runtime: sysbox-runc
+  smartide-golang-go-dev:
+    image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-golang-v2-jetbrains-goland:latest
     hostname: dev-container
     restart: always
     environment:
@@ -13,6 +12,7 @@ services:
     ports:
       - 6822:22
       - 6800:8887
+      - 3001:3001
     networks:
       - smartide-network  
 

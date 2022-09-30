@@ -4,18 +4,19 @@ orchestrator:
   version: 3
 workspace:
   dev-container:
-    service-name: smartide-idea-vmlc-java-dev
+    service-name: smartide-golang-go-dev
 
     ports:
-      tools-webide-idea: 6800
+      tools-webide-goland: 6800
       tools-ssh: 6822
+      apps-application: 3001
     ide-type: jb-projector
 
     volumes: 
       git-config: true
       ssh-key: true
     command:
-      - npm config get registry
+      - go env -w GOPROXY=https://goproxy.cn,direct
 
-  kube-deploy-files: "idea-vmlc-k8s-deployment.yaml" 
-  docker-compose-file: "idea-vmlc-docker-compose.yaml"
+  kube-deploy-files: "golang-k8s-deployment.yaml" 
+  docker-compose-file: "golang-docker-compose.yaml"
